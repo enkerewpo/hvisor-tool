@@ -59,7 +59,11 @@ static int flush_cache(__u64 phys_start, __u64 size)
     struct vm_struct *vma;
     int err = 0;
     size = PAGE_ALIGN(size);
+#ifndef LOONGARCH64
     vma = __get_vm_area(size, VM_IOREMAP, VMALLOC_START, VMALLOC_END);
+#else
+    vma = get_vm_area(size, VM_IOREMAP);
+#endif
     if (!vma)
     {
         pr_err("hvisor: failed to allocate virtual kernel memory for image\n");

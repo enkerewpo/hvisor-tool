@@ -5,6 +5,11 @@ ifeq ($(ARCH), arm64)
 	CC := aarch64-linux-gnu-gcc
 else ifeq ($(ARCH), riscv)
 	CC := riscv64-linux-gnu-gcc
+else ifeq ($(ARCH), loongarch)
+	CC := loongarch64-unknown-linux-gnu-gcc
+	CFLAGS += -DLOONGARCH64 -static
+else
+	CC := gcc
 endif
 
 .PHONY: all clean
